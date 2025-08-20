@@ -19,4 +19,9 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\JwtTokenService\Dto\" />
+    <Folder Include="Services\JwtTokenService\Request\" />
+  </ItemGroup>
+
 </Project>
