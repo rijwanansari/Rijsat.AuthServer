@@ -25,7 +25,7 @@ namespace AuthServer.Controllers
                 return request.GrantType switch
                 {
                     "password" => await HandlePasswordGrant(request),
-                    "authorization_code" => await HandleAuthorizationCodeGrant(request),
+                    //"authorization_code" => await HandleAuthorizationCodeGrant(request),
                     "refresh_token" => await HandleRefreshTokenGrant(request),
                     "client_credentials" => await HandleClientCredentialsGrant(request),
                     _ => BadRequest(new { error = "unsupported_grant_type" })
