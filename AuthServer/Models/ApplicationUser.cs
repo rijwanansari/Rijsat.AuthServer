@@ -15,6 +15,6 @@ public class ApplicationUser : IdentityUser
     public bool IsActive { get; set; } = true;
 
     // Navigation properties
-    //public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
-    //public virtual ICollection<UserPermission> UserPermissions { get; set; } = new List<UserPermission>();
+    public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+    public virtual ICollection<UserPermission> UserPermissions { get; set; } = new List<UserPermission>();
 }

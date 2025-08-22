@@ -7,8 +7,10 @@ namespace AuthServer.Infrastructure;
 
 public class AuthDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
 {
-    public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options) { }
-
+    public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
+    { 
+        
+    }
     public DbSet<ClientApplication> ClientApplications { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<Permission> Permissions { get; set; }
@@ -70,7 +72,7 @@ public class AuthDbContext : IdentityDbContext<ApplicationUser, ApplicationRole,
                 Name = "Admin",
                 NormalizedName = "ADMIN",
                 Description = "System Administrator",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 08, 08)
             },
             new ApplicationRole
             {
@@ -78,7 +80,7 @@ public class AuthDbContext : IdentityDbContext<ApplicationUser, ApplicationRole,
                 Name = "User",
                 NormalizedName = "USER",
                 Description = "Standard User",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 08, 08)
             },
             new ApplicationRole
             {
@@ -86,7 +88,7 @@ public class AuthDbContext : IdentityDbContext<ApplicationUser, ApplicationRole,
                 Name = "Manager", 
                 NormalizedName = "MANAGER",
                 Description = "Manager Role",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 08, 08)
             }
         );
         
@@ -110,20 +112,20 @@ public class AuthDbContext : IdentityDbContext<ApplicationUser, ApplicationRole,
             new Scope { Name = "offline_access", DisplayName = "Offline Access", Description = "Refresh token access" }
         );
         
-        // Seed client application
-        builder.Entity<ClientApplication>().HasData(
-            new ClientApplication
-            {
-                ClientId = "web-app",
-                ClientName = "Web Application",
-                ClientSecret = BCrypt.Net.BCrypt.HashPassword("web-app-secret"),
-                Description = "Main web application client",
-                AllowedGrantTypes = "authorization_code,refresh_token",
-                RedirectUris = "https://localhost:5002/signin-callback,https://localhost:5002/callback",
-                AllowedScopes = "openid,profile,email,api,offline_access",
-                AccessTokenLifetime = 3600,
-                RefreshTokenLifetime = 2592000
-            }
-        );
+        // // Seed client application
+        // builder.Entity<ClientApplication>().HasData(
+        //     new ClientApplication
+        //     {
+        //         ClientId = "web-app",
+        //         ClientName = "Web Application",
+        //         ClientSecret = BCrypt.Net.BCrypt.HashPassword("web-app-secret"),
+        //         Description = "Main web application client",
+        //         AllowedGrantTypes = "authorization_code,refresh_token",
+        //         RedirectUris = "https://localhost:5002/signin-callback,https://localhost:5002/callback",
+        //         AllowedScopes = "openid,profile,email,api,offline_access",
+        //         AccessTokenLifetime = 3600,
+        //         RefreshTokenLifetime = 2592000
+        //     }
+        // );
     }
 }

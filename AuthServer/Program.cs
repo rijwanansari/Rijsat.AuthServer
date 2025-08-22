@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -31,6 +29,7 @@ try
     // Add Entity Framework
     builder.Services.AddDbContext<AuthDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
     // Add Identity
     builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -176,8 +175,12 @@ try
         // Ensure database exists
         await context.Database.EnsureCreatedAsync();
 
+        
+        context.Database.Migrate();
+
         // Seed initial data
         await SeedDataAsync(userManager, roleManager, context);
+        DbSeeder.Seed(context);
     }
 
     Log.Information("Starting Authentication Server...");
