@@ -118,10 +118,8 @@ namespace AuthServer.Controllers
 
         private IActionResult RedirectToLocal(string? returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
-                return Redirect(returnUrl);
-            else
-                return RedirectToAction("Index", "Home");
+            // Always redirect to Account/Index after login or registration
+            return RedirectToAction("Index", "Account");
         }
 
     }
