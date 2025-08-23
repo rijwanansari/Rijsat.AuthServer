@@ -11,7 +11,7 @@ public class AuthorizationCode
     public string Scope { get; set; } = string.Empty;
     public DateTime ExpiryDate { get; set; }
     public bool IsUsed { get; set; } = false;
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; }
     
     // PKCE support
     public string? CodeChallenge { get; set; }

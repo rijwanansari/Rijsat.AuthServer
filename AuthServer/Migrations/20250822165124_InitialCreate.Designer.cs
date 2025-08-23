@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuthServer.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20250822085956_InitialCreate")]
+    [Migration("20250822165124_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -64,7 +64,7 @@ namespace AuthServer.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedAt = new DateTime(2025, 8, 22, 8, 59, 53, 837, DateTimeKind.Utc).AddTicks(6840),
+                            CreatedAt = new DateTime(2025, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "System Administrator",
                             IsActive = true,
                             Name = "Admin",
@@ -73,7 +73,7 @@ namespace AuthServer.Migrations
                         new
                         {
                             Id = "2",
-                            CreatedAt = new DateTime(2025, 8, 22, 8, 59, 53, 837, DateTimeKind.Utc).AddTicks(7035),
+                            CreatedAt = new DateTime(2025, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Standard User",
                             IsActive = true,
                             Name = "User",
@@ -82,7 +82,7 @@ namespace AuthServer.Migrations
                         new
                         {
                             Id = "3",
-                            CreatedAt = new DateTime(2025, 8, 22, 8, 59, 53, 837, DateTimeKind.Utc).AddTicks(7040),
+                            CreatedAt = new DateTime(2025, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Manager Role",
                             IsActive = true,
                             Name = "Manager",
@@ -257,22 +257,6 @@ namespace AuthServer.Migrations
                     b.HasKey("ClientId");
 
                     b.ToTable("ClientApplications");
-
-                    b.HasData(
-                        new
-                        {
-                            ClientId = "web-app",
-                            AccessTokenLifetime = 3600,
-                            AllowedGrantTypes = "authorization_code,refresh_token",
-                            AllowedScopes = "openid,profile,email,api,offline_access",
-                            ClientName = "Web Application",
-                            ClientSecret = "$2a$11$T9qRrZYqKPyGX/cDnNjpM.pXAfn6WZtIMkaOSmUDdFiLdm3yzOAh2",
-                            CreatedAt = new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3886),
-                            Description = "Main web application client",
-                            IsActive = true,
-                            RedirectUris = "https://localhost:5002/signin-callback,https://localhost:5002/callback",
-                            RefreshTokenLifetime = 2592000
-                        });
                 });
 
             modelBuilder.Entity("AuthServer.Models.ClientScope", b =>
@@ -456,7 +440,7 @@ namespace AuthServer.Migrations
                         new
                         {
                             Name = "openid",
-                            CreatedAt = new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3135),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "OpenID Connect",
                             DisplayName = "OpenID",
                             IsActive = true
@@ -464,7 +448,7 @@ namespace AuthServer.Migrations
                         new
                         {
                             Name = "profile",
-                            CreatedAt = new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3423),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "User profile information",
                             DisplayName = "Profile",
                             IsActive = true
@@ -472,7 +456,7 @@ namespace AuthServer.Migrations
                         new
                         {
                             Name = "email",
-                            CreatedAt = new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3424),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "User email address",
                             DisplayName = "Email",
                             IsActive = true
@@ -480,7 +464,7 @@ namespace AuthServer.Migrations
                         new
                         {
                             Name = "api",
-                            CreatedAt = new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3425),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Access to protected APIs",
                             DisplayName = "API Access",
                             IsActive = true
@@ -488,7 +472,7 @@ namespace AuthServer.Migrations
                         new
                         {
                             Name = "offline_access",
-                            CreatedAt = new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3426),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Refresh token access",
                             DisplayName = "Offline Access",
                             IsActive = true
@@ -641,7 +625,7 @@ namespace AuthServer.Migrations
             modelBuilder.Entity("AuthServer.Models.RefreshToken", b =>
                 {
                     b.HasOne("AuthServer.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("RefreshTokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -658,7 +642,7 @@ namespace AuthServer.Migrations
                         .IsRequired();
 
                     b.HasOne("AuthServer.Models.ApplicationRole", "Role")
-                        .WithMany()
+                        .WithMany("RolePermissions")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -677,7 +661,7 @@ namespace AuthServer.Migrations
                         .IsRequired();
 
                     b.HasOne("AuthServer.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("UserPermissions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -736,6 +720,18 @@ namespace AuthServer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AuthServer.Models.ApplicationRole", b =>
+                {
+                    b.Navigation("RolePermissions");
+                });
+
+            modelBuilder.Entity("AuthServer.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("RefreshTokens");
+
+                    b.Navigation("UserPermissions");
                 });
 
             modelBuilder.Entity("AuthServer.Models.ClientApplication", b =>

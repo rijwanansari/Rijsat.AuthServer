@@ -9,7 +9,7 @@ public class ClientApplication
     public string ClientSecret { get; set; } = string.Empty; // Hashed
     public string Description { get; set; } = string.Empty;
     public bool IsActive { get; set; } = true;
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; }
     
     // Allowed grant types (comma separated)
     public string AllowedGrantTypes { get; set; } = "authorization_code";
