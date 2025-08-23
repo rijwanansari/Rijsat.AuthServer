@@ -6,7 +6,7 @@ namespace AuthServer.Models;
 public class ApplicationRole : IdentityRole
 {
     public string? Description { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; }
     public bool IsActive { get; set; } = true;
     
     // Navigation properties

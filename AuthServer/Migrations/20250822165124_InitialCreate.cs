@@ -335,11 +335,6 @@ namespace AuthServer.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ClientApplications",
-                columns: new[] { "ClientId", "AccessTokenLifetime", "AllowedGrantTypes", "AllowedScopes", "ClientName", "ClientSecret", "CreatedAt", "Description", "IsActive", "RedirectUris", "RefreshTokenLifetime" },
-                values: new object[] { "web-app", 3600, "authorization_code,refresh_token", "openid,profile,email,api,offline_access", "Web Application", "$2a$11$T9qRrZYqKPyGX/cDnNjpM.pXAfn6WZtIMkaOSmUDdFiLdm3yzOAh2", new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3886), "Main web application client", true, "https://localhost:5002/signin-callback,https://localhost:5002/callback", 2592000 });
-
-            migrationBuilder.InsertData(
                 table: "Permissions",
                 columns: new[] { "Id", "Category", "Description", "IsActive", "Name" },
                 values: new object[,]
@@ -358,9 +353,9 @@ namespace AuthServer.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "CreatedAt", "Description", "IsActive", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", null, new DateTime(2025, 8, 22, 8, 59, 53, 837, DateTimeKind.Utc).AddTicks(6840), "System Administrator", true, "Admin", "ADMIN" },
-                    { "2", null, new DateTime(2025, 8, 22, 8, 59, 53, 837, DateTimeKind.Utc).AddTicks(7035), "Standard User", true, "User", "USER" },
-                    { "3", null, new DateTime(2025, 8, 22, 8, 59, 53, 837, DateTimeKind.Utc).AddTicks(7040), "Manager Role", true, "Manager", "MANAGER" }
+                    { "1", null, new DateTime(2025, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "System Administrator", true, "Admin", "ADMIN" },
+                    { "2", null, new DateTime(2025, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Standard User", true, "User", "USER" },
+                    { "3", null, new DateTime(2025, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Manager Role", true, "Manager", "MANAGER" }
                 });
 
             migrationBuilder.InsertData(
@@ -368,11 +363,11 @@ namespace AuthServer.Migrations
                 columns: new[] { "Name", "CreatedAt", "Description", "DisplayName", "IsActive" },
                 values: new object[,]
                 {
-                    { "api", new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3425), "Access to protected APIs", "API Access", true },
-                    { "email", new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3424), "User email address", "Email", true },
-                    { "offline_access", new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3426), "Refresh token access", "Offline Access", true },
-                    { "openid", new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3135), "OpenID Connect", "OpenID", true },
-                    { "profile", new DateTime(2025, 8, 22, 8, 59, 53, 838, DateTimeKind.Utc).AddTicks(3423), "User profile information", "Profile", true }
+                    { "api", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Access to protected APIs", "API Access", true },
+                    { "email", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "User email address", "Email", true },
+                    { "offline_access", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Refresh token access", "Offline Access", true },
+                    { "openid", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "OpenID Connect", "OpenID", true },
+                    { "profile", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "User profile information", "Profile", true }
                 });
 
             migrationBuilder.CreateIndex(
