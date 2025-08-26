@@ -1,9 +1,11 @@
+using AuthServer.Domain.Common;
 using System;
 
 namespace AuthServer.Domain.Entities;
 
-public class ClientScope
+public class ClientScope  : BaseEntity
 {
+    public int Id { get; set; }
     public string ClientId { get; set; } = string.Empty;
     public string ScopeId { get; set; } = string.Empty;
 
