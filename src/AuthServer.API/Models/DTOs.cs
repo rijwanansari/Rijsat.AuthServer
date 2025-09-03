@@ -30,4 +30,3 @@ public class AuthorizeRequest
     public string? CodeChallengeMethod { get; set; }
     public string? Nonce { get; set; }
 }
-

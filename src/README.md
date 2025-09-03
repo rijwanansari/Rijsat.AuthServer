@@ -92,4 +92,40 @@ grant_type=password&username=user@example.com&password=yourpassword&client_id=yo
 
 ---
 
+## Workflow: Centralized Authentication
+
+1. **Register a Client (Admin Only)**
+   - `POST /api/clients`
+   - Provide: client_id, client_secret, client_name, redirect_uris, scopes, etc.
+   - Only admin users can register clients. Client secrets are securely hashed.
+
+2. **Register a User**
+   - `POST /api/auth/register`
+   - Provide: username, email, password, etc.
+
+3. **Client Authenticates User**
+   - Client app sends user credentials to AuthServer:
+     - `POST /api/oauth/token` (with client_id, client_secret, username, password, scope)
+   - Only registered clients (with valid client_id and secret) can request tokens for users.
+   - Receives: access_token, refresh_token
+
+4. **Access Protected Resources**
+   - Client app uses access_token to call protected APIs.
+
+5. **User & Client Management**
+   - Admins manage users, roles, clients, scopes via API endpoints.
+
+6. **Token Revocation**
+   - `POST /api/oauth/revoke` to revoke refresh tokens.
+
+> All authentication and authorization is centralized in AuthServer.API for all your applications.
+
+---
+
+## Client Validation
+- **Client registration:** Only admin users can register new clients via the API.
+- **Token requests:** Only registered clients (with valid client_id and client_secret) can request tokens for users.
+- **User registration/login:** User registration is open, but login and token issuance require a valid client.
+- **Security:** The API validates client credentials and ensures only authorized clients can use authentication and token endpoints.
+
 For more details, see the code in each layer and the Swagger UI for live API docs.
