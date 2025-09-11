@@ -1,0 +1,85 @@
+{
+  "info": {
+    "_postman_id": "b1e2c3d4-5678-1234-9abc-def012345678",
+    "name": "AuthServer Manual Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Token - Password Grant",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            { "key": "grant_type", "value": "password" },
+            { "key": "client_id", "value": "your_client_id" },
+            { "key": "client_secret", "value": "your_client_secret" },
+            { "key": "username", "value": "testuser" },
+            { "key": "password", "value": "testpassword" }
+          ]
+        },
+        "url": {
+          "raw": "https://localhost:5001/oauth/token",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "5001",
+          "path": ["oauth", "token"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Token - Authorization Code Grant",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            { "key": "grant_type", "value": "authorization_code" },
+            { "key": "client_id", "value": "your_client_id" },
+            { "key": "client_secret", "value": "your_client_secret" },
+            { "key": "code", "value": "paste_code_here" },
+            { "key": "redirect_uri", "value": "https://localhost:5002/signin-oidc" }
+          ]
+        },
+        "url": {
+          "raw": "https://localhost:5001/oauth/token",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "5001",
+          "path": ["oauth", "token"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Authorize (Browser Step)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:5001/oauth/authorize?response_type=code&client_id=your_client_id&redirect_uri=https://localhost:5002/signin-oidc&scope=openid profile email&state=xyz",
+          "protocol": "https",
+          "host": ["localhost"],
+          "port": "5001",
+          "path": ["oauth", "authorize"],
+          "query": [
+            { "key": "response_type", "value": "code" },
+            { "key": "client_id", "value": "your_client_id" },
+            { "key": "redirect_uri", "value": "https://localhost:5002/signin-oidc" },
+            { "key": "scope", "value": "openid profile email" },
+            { "key": "state", "value": "xyz" }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

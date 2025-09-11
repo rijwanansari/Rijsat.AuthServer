@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using AuthServer.Application;
 using AuthServer.Infrastructure;
 using AuthServer.Infrastructure.Data;
@@ -141,6 +142,11 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 
+
+// Map default controller route for MVC (enables /Account/Login)
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapControllers();
 app.MapRazorPages();
 
@@ -152,8 +158,9 @@ using (var scope = app.Services.CreateScope())
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
-        // Ensure database is created
-        await context.Database.EnsureCreatedAsync();
+
+    // Apply migrations
+    await context.Database.MigrateAsync();
 
         // Seed initial data
         await ApplicationDbContextSeed.SeedDefaultDataAsync(context, logger);
